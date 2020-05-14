@@ -19,6 +19,9 @@ class ProjectStatusTestCase(TestCase):
         get_project_status = ProjectStatus.objects.get(name="project status")
         self.assertIsInstance(get_project_status, ProjectStatus)
         self.assertIn(get_project_status.name, get_project_status.__str__())
+        self.assertEqual(ProjectStatus.objects.filter(
+            name=get_project_status.name).count(), 1)
+        
 
 class DocumentationTestCase(TestCase):
 
@@ -31,6 +34,8 @@ class DocumentationTestCase(TestCase):
         get_documentation =Documentation.objects.get(name="document created")
         self.assertIsInstance(get_documentation, Documentation)
         self.assertIn(get_documentation.name, get_documentation.__str__() )
+        self.assertEqual(Documentation.objects.filter(
+            name=get_documentation.name).count(), 1)
 
 class ChecklistTestCase(TestCase):
 
@@ -68,6 +73,8 @@ class ChecklistTestCase(TestCase):
         get_sector = Sector.objects.get(sector="new sector")
         self.assertIsInstance(get_sector, Sector)
         self.assertIn(get_sector.sector, get_sector.__str__())
+        self.assertEqual(Sector.objects.filter(
+            sector=get_sector.sector).count(), 1)
 
 
     def test_checklist_creation(self):
@@ -75,6 +82,8 @@ class ChecklistTestCase(TestCase):
         get_checklist =Checklist.objects.get(name="test checklist created")
         self.assertIsInstance(get_checklist, Checklist)
         self.assertEqual(get_checklist.agreement, get_checklist.__str__())
+        self.assertEqual(Checklist.objects.filter(
+            name=get_checklist.name).count(), 1)
 
 
 class SiteProfileTestCase(TestCase):
@@ -103,12 +112,8 @@ class SiteProfileTestCase(TestCase):
         get_community = SiteProfile.objects.get(name="testcommunity")
         self.assertIsInstance(get_community, SiteProfile)
         self.assertIn(get_community.name, get_community.__str__())
-
-    def test_community_exists(self):
-        """Check for SiteProfile Object"""
-        get_community = SiteProfile.objects.get(name="testcommunity")
         self.assertEqual(SiteProfile.objects.filter(
-            id=get_community.id).count(), 1)
+            name=get_community.name).count(), 1)
 
 
 class AgreementTestCase(TestCase):
@@ -157,27 +162,15 @@ class AgreementTestCase(TestCase):
             project_name="testproject")
         self.assertIsInstance(get_agreement, ProjectAgreement)
         self.assertIn(get_agreement.project_name, get_agreement.__str__())
-
-
-    def test_agreement_exists(self):
-        """Check for Agreement object"""
-        get_agreement = ProjectAgreement.objects.get(
-            project_name="testproject")
         self.assertEqual(ProjectAgreement.objects.filter(
-            id=get_agreement.id).count(), 1)
-
+            project_name=get_agreement.project_name).count(), 1)
 
     def test_Budget_creation(self):
         """Test if Budget Object is created"""
         get_budget = Budget.objects.get(contributor="testbudget")
         self.assertIsInstance(get_budget, Budget)
         self.assertIn(get_budget.contributor, get_budget.__str__())
-
-    def test_budget_exists(self):
-        """Check for Budget object"""
-        get_budget = Budget.objects.get(contributor="testbudget")
         self.assertEqual(Budget.objects.filter(id=get_budget.id).count(), 1)
-
 
 class CompleteTestCase(TestCase):
 
@@ -244,12 +237,13 @@ class CompleteTestCase(TestCase):
         get_complete = ProjectComplete.objects.get(project_name="testproject")
         self.assertIsInstance(get_complete, ProjectComplete)
         self.assertIn(get_complete.project_name, get_complete.__str__())
+        self.assertEqual(ProjectComplete.objects.filter(project_name=get_complete.project_name).count(), 1)
 
     def test_complete_creation_with_defaults_for_project_agreement(self):
         """Test if ProjectComplete Object with defaults for ProjectAgreement Object is created"""
         get_complete2 = ProjectComplete.objects.get(project_name="testproject2")
-        self.assertIsInstance(get_complete2, ProjectComplete)
         self.assertIn(get_complete2.project_name, get_complete2.__str__())
+        self.assertIsInstance(get_complete2, ProjectComplete)
 
     def test_complete_exists(self):
         """Check for Complete object"""
