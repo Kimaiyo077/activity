@@ -8,8 +8,8 @@ from workflow.models import (
     Documentation, Checklist, ProjectStatus
 )
 
-class ProjectStatusTestCase(TestCase):
 
+class ProjectStatusTestCase(TestCase):
 
     def setUp(self):
         new_project_status = ProjectStatus.objects.create(name="project status")
@@ -25,7 +25,6 @@ class ProjectStatusTestCase(TestCase):
 
 class DocumentationTestCase(TestCase):
 
-
     def setUp(self):
         new_documentation = Documentation.objects.create(name="document created", description="documentation test")
 
@@ -37,8 +36,8 @@ class DocumentationTestCase(TestCase):
         self.assertEqual(Documentation.objects.filter(
             name=get_documentation.name).count(), 1)
 
-class ChecklistTestCase(TestCase):
 
+class ChecklistTestCase(TestCase):
 
     fixtures = ['fixtures/sectors.json', 'fixtures/projecttype.json']
     def setUp(self):   
@@ -76,7 +75,6 @@ class ChecklistTestCase(TestCase):
         self.assertEqual(Sector.objects.filter(
             sector=get_sector.sector).count(), 1)
 
-
     def test_checklist_creation(self):
         """Check for Checklist Object creation"""
         get_checklist =Checklist.objects.get(name="test checklist created")
@@ -88,9 +86,7 @@ class ChecklistTestCase(TestCase):
 
 class SiteProfileTestCase(TestCase):
 
-
     fixtures = ['fixtures/organization.json', 'fixtures/profiletypes.json']
-
     def setUp(self):
         new_organization = Organization.objects.create(name="Activity")
         get_organization = Organization.objects.get(name="Activity")
@@ -118,9 +114,7 @@ class SiteProfileTestCase(TestCase):
 
 class AgreementTestCase(TestCase):
 
-
     fixtures = ['fixtures/projecttype.json', 'fixtures/sectors.json']
-
     def setUp(self):
         new_organization = Organization.objects.create(name="Activity")
         get_organization = Organization.objects.get(name="Activity")
@@ -155,7 +149,6 @@ class AgreementTestCase(TestCase):
             description_of_contribution="new_province", proposed_value="24",
             agreement=new_agreement)
 
-
     def test_Agreement_creation(self):
         """Test if Agreement Object is created"""
         get_agreement = ProjectAgreement.objects.get(
@@ -172,11 +165,10 @@ class AgreementTestCase(TestCase):
         self.assertIn(get_budget.contributor, get_budget.__str__())
         self.assertEqual(Budget.objects.filter(id=get_budget.id).count(), 1)
 
+
 class CompleteTestCase(TestCase):
 
-
     fixtures = ['fixtures/projecttype.json', 'fixtures/sectors.json']
-
     def setUp(self):
         new_organization = Organization.objects.create(name="Activity")
         get_organization = Organization.objects.get(name="Activity")
